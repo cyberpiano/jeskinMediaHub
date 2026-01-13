@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Catalog | Jeskin Media Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+        overflow-x: hidden;
+      }
+
+      .product-hero {
+        background: linear-gradient(
+            rgba(30, 58, 138, 0.9),
+            rgba(30, 58, 138, 0.9)
+          ),
+          url("https://images.unsplash.com/photo-1562654501-a0ccc0fc3fb1?auto=format&fit=crop&q=80&w=2000");
+        background-size: cover;
+        background-position: center;
+      }
+
+      .glass-nav {
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+      }
+      .gold-gradient {
+        background: linear-gradient(135deg, #d4af37 0%, #f1d36e 100%);
+      }
+
+      #mobile-menu {
+        transition: all 0.3s ease-in-out;
+        max-height: 0;
+        overflow: hidden;
+      }
+      #mobile-menu.active {
+        max-height: 400px;
+      }
+
+      .filter-btn.active {
+        background: #1e3a8a;
+        color: white;
+        border-color: #1e3a8a;
+      }
+
+      .product-card {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Image aspect ratio container */
+      .img-container {
+        position: relative;
+        padding-top: 100%;
+        overflow: hidden;
+        border-radius: 12px;
+      }
+      .img-container img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      .product-card:hover img {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 text-gray-900">
+    <nav
+      class="glass-nav p-4 sticky top-0 z-50 shadow-md border-b border-gray-100"
+    >
+      <div class="container mx-auto flex justify-between items-center">
+        <a href="index.html" class="flex items-center">
+          <img
+            src="logo.png"
+            alt="Jeskin Media Hub Logo"
+            class="h-10 md:h-12 w-auto object-contain"
+          />
+        </a>
+
+        <div
+          class="hidden md:flex space-x-8 uppercase text-xs font-bold tracking-widest text-blue-900"
+        >
+          <a href="index.html" class="hover:text-yellow-600 transition">Home</a>
+          <a href="about.html" class="hover:text-yellow-600 transition"
+            >About</a
+          >
+          <a
+            href="products.html"
+            class="text-yellow-600 border-b-2 border-yellow-600"
+            >Services</a
+          >
+          <a href="contact.html" class="hover:text-yellow-600 transition"
+            >Contact</a
+          >
+        </div>
+
+        <a
+          href="contact.html"
+          class="hidden md:block gold-gradient text-blue-900 px-6 py-2 rounded-md font-bold text-sm shadow-sm hover:brightness-105 transition"
+        >
+          ENQUIRY
+        </a>
+
+        <button
+          id="menu-btn"
+          class="md:hidden text-blue-900 focus:outline-none"
+        >
+          <i class="fas fa-bars text-2xl" id="menu-icon"></i>
+        </button>
+      </div>
+
+      <div id="mobile-menu" class="md:hidden bg-white">
+        <div
+          class="flex flex-col space-y-4 p-6 uppercase text-sm font-bold tracking-widest text-blue-900"
+        >
+          <a href="index.html" class="hover:text-yellow-600 transition">Home</a>
+          <a href="about.html" class="hover:text-yellow-600 transition"
+            >About</a
+          >
+          <a href="products.html" class="text-yellow-600">Services</a>
+          <a href="contact.html" class="hover:text-yellow-600 transition"
+            >Contact</a
+          >
+          <a
+            href="contact.html"
+            class="gold-gradient text-center text-blue-900 py-3 rounded-md font-bold"
+            >Get a Quote</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <header class="product-hero py-20 md:py-28 text-center text-white">
+      <div class="container mx-auto px-6">
+        <h1
+          class="text-4xl md:text-6xl font-black mb-4 animate__animated animate__fadeInDown"
+        >
+          Product Catalog
+        </h1>
+        <p
+          class="text-yellow-500 font-bold tracking-widest uppercase text-sm md:text-base"
+        >
+          Premium Branding Solutions for Every Need
+        </p>
+      </div>
+    </header>
+
+    <section
+      class="py-8 bg-white sticky top-[72px] md:top-[80px] z-40 shadow-sm"
+    >
+      <div class="container mx-auto px-6 overflow-x-auto">
+        <div
+          class="flex md:justify-center space-x-3 min-w-max pb-2"
+          id="filter-container"
+        >
+          <button
+            class="filter-btn active px-6 py-2 rounded-full border-2 border-gray-200 text-sm font-bold transition"
+            data-filter="all"
+          >
+            All Items
+          </button>
+          <button
+            class="filter-btn px-6 py-2 rounded-full border-2 border-gray-200 text-sm font-bold transition"
+            data-filter="apparel"
+          >
+            Apparel
+          </button>
+          <button
+            class="filter-btn px-6 py-2 rounded-full border-2 border-gray-200 text-sm font-bold transition"
+            data-filter="stationery"
+          >
+            Stationery
+          </button>
+          <button
+            class="filter-btn px-6 py-2 rounded-full border-2 border-gray-200 text-sm font-bold transition"
+            data-filter="awards"
+          >
+            Awards
+          </button>
+          <button
+            class="filter-btn px-6 py-2 rounded-full border-2 border-gray-200 text-sm font-bold transition"
+            data-filter="souvenirs"
+          >
+            Souvenirs
+          </button>
+          <button
+            class="filter-btn px-6 py-2 rounded-full border-2 border-gray-200 text-sm font-bold transition"
+            data-filter="marketing"
+          >
+            Marketing
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16">
+      <div class="container mx-auto px-6">
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+          id="product-grid"
+        >
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="apparel"
+          >
+            <div class="img-container">
+              <img src="images/apparel1.jpg" alt="Shirts" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Cloth Printing
+            </h4>
+          </div>
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="apparel"
+          >
+            <div class="img-container">
+              <img src="images/apparel2.jpg" alt="Shirts" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              T-Shirt Printing
+            </h4>
+          </div>
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="apparel"
+          >
+            <div class="img-container">
+              <img src="images/apparel3.jpg" alt="Shirts" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Branded Party Shirts
+            </h4>
+          </div>
+
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="apparel"
+          >
+            <div class="img-container">
+              <img src="images/apparel4.jpg" alt="Shirts" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Branded Party Shirts
+            </h4>
+          </div>
+
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="apparel"
+          >
+            <div class="img-container">
+              <img src="images/apparel5.jpg" alt="Shirts" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Branded T-Shirts
+            </h4>
+          </div>
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="apparel"
+          >
+            <div class="img-container">
+              <img src="images/apparel6.jpg" alt="Shirts" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Cloth PRINTING
+            </h4>
+          </div>
+
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="stationery"
+          >
+            <div class="img-container">
+              <img src="images/stationery1.jpg" alt="Diaries" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Diaries & Notepads
+            </h4>
+          </div>
+
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="stationery"
+          >
+            <div class="img-container">
+              <img src="images/stationery2.jpg" alt="Exercise Books" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Branded Diaries
+            </h4>
+          </div>
+
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="awards"
+          >
+            <div class="img-container">
+              <img src="images/award1.jpg"Medals" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Graduation Medals
+            </h4>
+          </div>
+
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="awards"
+          >
+            <div class="img-container">
+              <img src="images/award2.jpg" alt="medal" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Medals
+            </h4>
+          </div>
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="awards"
+          >
+            <div class="img-container">
+              <img src="images/award3.jpg" alt="Plaques" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Award Plaques
+            </h4>
+          </div>
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="awards"
+          >
+            <div class="img-container">
+              <img src="images/award4.jpg" alt="Plaques" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Crystal Plaques
+            </h4>
+          </div>
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="awards"
+          >
+            <div class="img-container">
+              <img src="images/souvenir1.jpg" alt="Plaques" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Crystal Plaques
+            </h4>
+          </div>
+
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="souvenirs"
+          >
+            <div class="img-container">
+              <img src="images/souvenir.jpg" alt="Gift Packs" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Gift Packs
+            </h4>
+          </div>
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="souvenirs"
+          >
+            <div class="img-container">
+              <img src="images/souvenir2.jpg" alt="Gift Packs" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Gift Packs
+            </h4>
+          </div>
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="souvenirs"
+          >
+            <div class="img-container">
+              <img src="images/souvenir3.jpg" alt="Gift Packs" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Branded Facetowel & Mug
+            </h4>
+          </div>
+
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="souvenirs"
+          >
+            <div class="img-container">
+              <img src="images/souvenir4.jpg" alt="Mugs" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              BRANDED Mugs
+            </h4>
+          </div>
+
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="souvenirs"
+          >
+            <div class="img-container">
+              <img src="images/souvenir5.jpg" alt="Mugs" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              BRANDED Mugs
+            </h4>
+          </div>
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="souvenirs"
+          >
+            <div class="img-container">
+              <img src="images/souvenir6.jpg" alt="Keyholder" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              BRANDED Keyholder
+            </h4>
+          </div>
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="souvenirs"
+          >
+            <div class="img-container">
+              <img src="images/souvenir7.jpg" alt="Keyholder" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              BRANDED Bottles
+            </h4>
+          </div>
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="souvenirs"
+          >
+            <div class="img-container">
+              <img src="images/souvenir8.jpg" alt="Keyholder" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              BRANDED flashdrives
+            </h4>
+          </div>
+
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="marketing"
+          >
+            <div class="img-container">
+              <img src="images/marketing1.jpg" alt="Pull Up Stands" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Pull Up Stands
+            </h4>
+          </div>
+
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="marketing"
+          >
+            <div class="img-container">
+              <img src="images/marketing2.jpg" alt="gift bags" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Branded Gift Bags
+            </h4>
+          </div>
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="marketing"
+          >
+            <div class="img-container">
+              <img src="images/marketing3.jpg" alt="poly bags" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Branded Poly Bags
+            </h4>
+          </div>
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="marketing"
+          >
+            <div class="img-container">
+              <img src="images/marketing4.jpg" alt="poly bags" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Branded Poly Bags
+            </h4>
+          </div>
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="marketing"
+          >
+            <div class="img-container">
+              <img src="images/marketing5.jpg" alt="poly bags" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              T-shirt and Cap Designs
+            </h4>
+          </div>
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="marketing"
+          >
+            <div class="img-container">
+              <img src="images/marketing6.jpg" alt="poly bags" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Branded Caps
+            </h4>
+          </div>
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="marketing"
+          >
+            <div class="img-container">
+              <img src="images/marketing7.jpg" alt="logo designing" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              logo designing
+            </h4>
+          </div>
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="marketing"
+          >
+            <div class="img-container">
+              <img src="images/marketing8.jpg" alt="poly bags" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              Logo Designing
+            </h4>
+          </div>
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="marketing"
+          >
+            <div class="img-container">
+              <img src="images/marketing9.jpg" alt="poly bags" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              posters & flyer designing
+            </h4>
+          </div>
+
+          <div
+            class="product-card bg-white p-3 rounded-2xl shadow-sm border border-gray-100"
+            data-category="marketing"
+          >
+            <div class="img-container">
+              <img src="images/marketing10.jpg" alt="poly bags" />
+            </div>
+            <h4
+              class="font-bold text-blue-900 mt-4 mb-2 text-center uppercase text-sm tracking-wide"
+            >
+              ID Cards design & Printing
+            </h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-white border-t border-gray-200 pt-16 pb-10">
+      <div
+        class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-gray-100 pb-12"
+      >
+        <div class="md:col-span-2">
+          <img src="logo.png" alt="Jeskin Media Hub" class="h-12 w-auto mb-6" />
+          <p class="text-gray-500 max-w-sm mb-6 text-sm">
+            Quality printing that adds value to your life. Your partner in
+            professional branding since 2019.
+          </p>
+
+          <div class="flex space-x-4 justify-start">
+            <a
+              href="https://www.facebook.com/share/1CvrM5L7qF/"
+              target="_blank"
+              class="w-10 h-10 bg-blue-50 text-blue-900 flex items-center justify-center rounded-full hover:bg-[#1877F2] hover:text-white transition-all duration-300"
+            >
+              <i class="fab fa-facebook-f"></i>
+            </a>
+
+            <a
+              href="https://www.instagram.com/jeskinmediahub?igsh=MTcweXAyd2V2OTkzZQ=="
+              target="_blank"
+              class="w-10 h-10 bg-blue-50 text-blue-900 flex items-center justify-center rounded-full hover:bg-[#E4405F] hover:text-white transition-all duration-300"
+            >
+              <i class="fab fa-instagram"></i>
+            </a>
+
+            <a
+              href="https://www.tiktok.com/@jeskinmediahub?_r=1&_t=ZN-931WKAqWehC"
+              target="_blank"
+              class="w-10 h-10 bg-blue-50 text-blue-900 flex items-center justify-center rounded-full hover:bg-black hover:text-white transition-all duration-300"
+            >
+              <i class="fab fa-tiktok"></i>
+            </a>
+
+            <a
+              href="https://wa.me/233249096976"
+              target="_blank"
+              class="w-10 h-10 bg-blue-50 text-blue-900 flex items-center justify-center rounded-full hover:bg-[#25D366] hover:text-white transition-all duration-300"
+            >
+              <i class="fab fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="text-sm">
+          <h4 class="font-bold mb-6 text-blue-900 uppercase tracking-widest">
+            Explore
+          </h4>
+          <ul class="space-y-3 text-gray-500">
+            <li>
+              <a href="about.html" class="hover:text-yellow-600 transition"
+                >Our Story</a
+              >
+            </li>
+            <li>
+              <a href="products.html" class="hover:text-yellow-600 transition"
+                >Our Services</a
+              >
+            </li>
+            <li>
+              <a href="contact.html" class="hover:text-yellow-600 transition"
+                >Contact Us</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="text-sm">
+          <h4 class="font-bold mb-6 text-blue-900 uppercase tracking-widest">
+            Location
+          </h4>
+          <p class="text-gray-500 mb-2">LW8 Beach ST, Tanoso</p>
+          <p class="text-gray-500 mb-4">Kumasi, Ghana</p>
+          <p class="text-blue-900 font-black text-base">+233 249 096 976</p>
+        </div>
+      </div>
+
+      <p
+        class="text-center pt-8 text-gray-400 text-[10px] font-bold uppercase tracking-widest"
+      >
+        &copy; 2026 Jeskin Media Hub. All Rights Reserved.
+      </p>
+    </footer>
+
+    <script>
+      // Filter Logic
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      const productCards = document.querySelectorAll(".product-card");
+
+      filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          filterBtns.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const filterValue = btn.getAttribute("data-filter");
+
+          productCards.forEach((card) => {
+            if (
+              filterValue === "all" ||
+              card.getAttribute("data-category") === filterValue
+            ) {
+              card.style.display = "block";
+              card.classList.add("animate__animated", "animate__fadeIn");
+            } else {
+              card.style.display = "none";
+            }
+          });
+        });
+      });
+
+      // Mobile Menu Logic
+      const menuBtn = document.getElementById("menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const menuIcon = document.getElementById("menu-icon");
+
+      menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("active");
+        menuIcon.classList.toggle("fa-bars");
+        menuIcon.classList.toggle("fa-times");
+      });
+    </script>
+  </body>
+</html>
