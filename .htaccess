@@ -1,0 +1,54 @@
+# .htaccess for Jeskin Media Hub
+# Hostinger compatible (Apache with mod_rewrite)
+
+# --- 1. REMOVE .html EXTENSION (Clean URLs) ---
+RewriteEngine On
+RewriteBase /
+
+# 301 redirect: *.html to clean URL (e.g. /about.html → /about)
+RewriteCond %{THE_REQUEST} \s/[^.]+\.html [NC]
+RewriteRule ^(.+)\.html$ /$1 [R=301,L]
+
+# 301 redirect: /index.html to /
+RewriteCond %{THE_REQUEST} \s/index\.html [NC]
+RewriteRule ^index\.html$ / [R=301,L]
+
+# Internally rewrite clean URLs to .html (if not a real file or directory)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)/?$ $1.html [L]
+
+# Root: / is served by index.html automatically by Apache
+
+# --- 2. FORCE HTTPS (uncomment after enabling SSL on Hostinger) ---
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# --- 3. SECURITY & PERFORMANCE ---
+# Disable directory listing
+Options -Indexes
+
+# Prevent access to .htaccess and other sensitive files
+<FilesMatch "^\\.ht">
+    Require all denied
+</FilesMatch>
+
+# Optional: reduce MIME type sniffing (XSS)
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# --- 4. CACHING (optional; enable if mod_expires is available on Hostinger) ---
+# <IfModule mod_expires.c>
+#   ExpiresActive On
+#   ExpiresByType image/jpg "access plus 1 month"
+#   ExpiresByType image/jpeg "access plus 1 month"
+#   ExpiresByType image/png "access plus 1 month"
+#   ExpiresByType image/gif "access plus 1 month"
+#   ExpiresByType image/webp "access plus 1 month"
+#   ExpiresByType text/css "access plus 1 week"
+#   ExpiresByType application/javascript "access plus 1 week"
+# </IfModule>

@@ -1,0 +1,12 @@
+# robots.txt for Jeskin Media Hub
+# Replace YOUR_DOMAIN.com with your actual domain
+
+User-agent: *
+Allow: /
+
+# Sitemaps - submit these URLs to Google Search Console & Bing Webmaster Tools
+Sitemap: https://www.YOUR_DOMAIN.com/sitemap.xml
+
+# Disallow admin / private folders if you add them later
+# Disallow: /admin/
+# Disallow: /private/
